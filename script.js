@@ -8,17 +8,25 @@
  currentDay.innerText = moment(today).format('LLLL');
 
  $(".saveBtn").on("click", function() {
-     var text = $(this).siblings("description").val();
+     var text = getText(this.id);
      var time = $(this).parent().attr("id");
-
      localStorage.setItem(time, text);
  })
 
+ function getText(btnID) {
+     var input = document.getElementById(btnID + "-input");
+     "8-9-input"
+     return input.value;
+ }
 
- storageInput.addEventListener('input', letter => {
-     console.log(letter)
-     text.textContent = letter.target.value
- })
+ //  storageInput.addEventListener('input', letter => {
+ //      console.log(letter)
+ //      text.textContent = letter.target.value
+ //  })
+
+ $('input[type="text"]').on('input', function(e) {
+     console.log(e.originalEvent.data);
+ });
 
  //color past, present, future
  $(function() {
