@@ -1,28 +1,22 @@
  var currentDay = document.getElementById("currentDay")
  var today = new Date()
-     // const storageInput = document.querySelector('.description')
-     // const text = document.querySelector('.text')
-     // const saveBtn = document.querySelector('saveBtn')
 
- //today's date and time
+ //displays today's date and time
  currentDay.innerText = moment(today).format('LLLL');
-
+ var hour = moment().hours()
+ console.log(hour)
+     //entering an event displays
  $(".saveBtn").on("click", function() {
-     var text = getText(this.id);
-     var time = $(this).parent().attr("id");
-     localStorage.setItem(time, text);
+     var timeblock = $(this).attr("id").split("-")[0]
+     var userEntry = $("#" + timeblock + "-input").val()
+     localStorage.setItem(timeblock, userEntry);
  })
 
+ //localStorage displays
  function getText(btnID) {
      var input = document.getElementById(btnID + "-input");
-     "8-9-input"
      return input.value;
  }
-
- //  storageInput.addEventListener('input', letter => {
- //      console.log(letter)
- //      text.textContent = letter.target.value
- //  })
 
  $('input[type="text"]').on('input', function(e) {
      console.log(e.originalEvent.data);
@@ -33,10 +27,18 @@
      var state = true;
  })
 
- // var saveTasks = function() {
- //     localStorage.setItem("tasks", JSON.stringify(tasks));
- // }
+ for (let i = 8; i < 18; i++) {
+     $("#" + i + "-input").val(localStorage.getItem(i))
+     if (i > hour) {
+         $("#" + i + "-input").addClass("future")
+     } else if (i == hour) {
+         $("#" + i + "-input").addClass("present")
+     } else {
+         $("#" + i + "-input").addClass("past")
+     }
+ }
 
- // $(".list-group").on("click", "p", function() {
- //     console.log("<p> was clicked");
- // });
+ var saveTasks = function() {
+     localStorage.setItem("tasks", JSON.stringify(tasks));
+ }
+ saveTasks()
